@@ -6,10 +6,12 @@ const authRouter=require('./routes/auth');
 const taskRouter=require('./routes/task');
 const session = require('express-session');
 const cors=require('cors');
+const mongoUrl=require('./utils')
 
 app.use(express.json());
 app.use(cors());
 dotenv.config();
+
 
 app.use(session({
     secret: '234567876543',
@@ -17,7 +19,7 @@ app.use(session({
     saveUninitialized: true,
   }));
 
-mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl,{ useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log('Connected to MongoDB');
 }).catch((err)=>{
